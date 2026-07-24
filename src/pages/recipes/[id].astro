@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Likes from "../../components/Likes";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection("recipes");
+
+  return recipes.map((recipe) => {
+    return {
+      params: { id: recipe.id },
+      props: { recipe },
+    };
+  });
+}
+
+const { recipe } = Astro.props;
+const { Content } = await render(recipe);
+---
+
+<BaseLayout>
+  <div class="content">
+    <Content />
+    <Likes client:visible />
+  </div>
+</BaseLayout>
+
+<style>
+  .content :global(h3) {
+    font-family: "Fraunces", serif;
+    color: #b8441f;
+    margin-top: 40px;
+  }
+  .content :global(blockquote) {
+    border-left: 4px solid #4a7c59;
+    background-color: #fff3e6;
+    padding: 12px 20px;
+    margin: 20px 0;
+    border-radius: 6px;
+    font-style: italic;
+  }
+  .content :global(ul) {
+    padding-left: 20px;
+  }
+</style>

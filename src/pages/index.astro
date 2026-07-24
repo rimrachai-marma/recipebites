@@ -1,17 +1,34 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <div class="content">
+    <h2>Welcome to Recipe Bites</h2>
+
+    <p>
+      A little collection of recipes I've cooked, tweaked, and occasionally set off the smoke alarm making. Pull up a
+      chair, grab a snack, and see what's cooking.
+    </p>
+    <a href="/recipes">Take a look at my recipes</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .content {
+    text-align: center;
+  }
+  a {
+    display: inline-block;
+    background-color: #e8622c;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 20px;
+    font-weight: 700;
+  }
+  a:hover {
+    background-color: #c9501f;
+  }
+</style>

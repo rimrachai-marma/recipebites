@@ -1,0 +1,55 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import RecipeCard from "../../../components/RecipeCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const recipes = await getCollection("recipes");
+  return paginate(recipes, { pageSize: 3 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout>
+  <div class="content">
+    <h2>Recipes</h2>
+    {page.data.map((recipe) => <RecipeCard recipe={recipe} />)}
+    {!page.data.length && <p>No recipes to show.</p>}
+
+    <nav class="pagination">
+      {page.url.prev ? <a href={page.url.prev}>← Previous</a> : <span />}
+      <span class="page-count">Page {page.currentPage} of {page.lastPage}</span>
+      {page.url.next ? <a href={page.url.next}>Next →</a> : <span />}
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  h2 {
+    padding-left: 12px;
+    border-left: 8px solid #4a7c59;
+    margin-bottom: 40px;
+  }
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #f0dcc4;
+  }
+  .pagination a {
+    color: #e8622c;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .pagination a:hover {
+    text-decoration: underline;
+  }
+  .page-count {
+    color: #6b4423;
+    font-size: 0.95em;
+  }
+</style>

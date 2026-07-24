@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  recipe: CollectionEntry<"recipes">;
+}
+
+const { recipe } = Astro.props;
+---
+
+<div class="recipe-card">
+  <p class="recipe-title">{recipe.data.title} <span class="recipe-rating">{recipe.data.rating}/10</span></p>
+  <p class="recipe-chef">by {recipe.data.chef}</p>
+  <p class="recipe-summary">{recipe.data.summary}</p>
+  <a href={`/recipes/${recipe.id}`}>View Recipe →</a>
+</div>
+
+<style>
+  .recipe-card {
+    background-color: #fff8f0;
+    border: 1px solid #f0dcc4;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px auto;
+    box-shadow: 0 4px 0 #e8b98a;
+  }
+  .recipe-title {
+    font-family: "Fraunces", serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #b8441f;
+    margin: 0;
+  }
+  .recipe-rating {
+    color: #4a7c59;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+  .recipe-chef {
+    margin-top: 4px;
+    font-style: italic;
+    color: #6b4423;
+  }
+  .recipe-summary {
+    font-size: 1em;
+  }
+  a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #e8622c;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

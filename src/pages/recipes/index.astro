@@ -1,0 +1,27 @@
+---
+return Astro.redirect("/recipes/page/1");
+---
+
+<!-- ---
+import { getCollection } from "astro:content";
+import RecipeCard from "../../components/RecipeCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const recipes = await getCollection("recipes");
+---
+
+<BaseLayout>
+  <div class="content">
+    <h2>Recipes</h2>
+    {recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+    {!recipes.length && <p>No recipes to show.</p>}
+  </div>
+</BaseLayout>
+
+<style>
+  h2 {
+    padding-left: 12px;
+    border-left: 8px solid #4a7c59;
+    margin-bottom: 40px;
+  }
+</style> -->
