@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Likes from "../../components/Likes";
 
@@ -18,28 +19,199 @@ const { recipe } = Astro.props;
 const { Content } = await render(recipe);
 ---
 
-<BaseLayout>
+<BaseLayout title={`${recipe.data.title} | Recipe Bites`}>
   <div class="content">
+    {
+      recipe.data.image && (
+        <div class="hero">
+          <Image src={recipe.data.image} alt={recipe.data.title} width={1000} height={420} />
+          <div class="hero-caption">
+            <span class="hero-chef">by {recipe.data.chef}</span>
+            <span class="hero-rating">{recipe.data.rating}/10</span>
+          </div>
+        </div>
+      )
+    }
+
     <Content />
+
+    {
+      recipe.data.gallery && recipe.data.gallery.length > 0 && (
+        <div class="gallery-section">
+          <h3>In the Making</h3>
+          <div class="gallery">
+            {recipe.data.gallery.map((img) => (
+              <Image src={img} alt={`${recipe.data.title} step photo`} width={300} height={200} />
+            ))}
+          </div>
+        </div>
+      )
+    }
+
     <Likes client:visible />
   </div>
 </BaseLayout>
 
 <style>
+  .hero {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #f0dcc4;
+    box-shadow: 0 4px 0 #e8b98a;
+    margin-bottom: 30px;
+  }
+  .hero :global(img) {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff8f0;
+    padding: 10px 20px;
+  }
+  .hero-chef {
+    font-style: italic;
+    color: #6b4423;
+  }
+  .hero-rating {
+    background-color: #4a7c59;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9em;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .gallery-section {
+    margin: 30px 0;
+  }
+  .gallery-section h3 {
+    margin-bottom: 12px;
+  }
+  .gallery {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .gallery :global(img) {
+    border-radius: 8px;
+    border: 2px solid #e8b98a;
+    object-fit: cover;
+    width: 300px;
+    height: 200px;
+  }
+
   .content :global(h3) {
     font-family: "Fraunces", serif;
     color: #b8441f;
     margin-top: 40px;
   }
   .content :global(blockquote) {
-    border-left: 4px solid #4a7c59;
+    border-left: 4px solid #c86432;
     background-color: #fff3e6;
     padding: 12px 20px;
     margin: 20px 0;
-    border-radius: 6px;
     font-style: italic;
   }
   .content :global(ul) {
     padding-left: 20px;
+  }
+
+  /* GFM (GitHub Flavored Markdown) */
+  .content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  .content :global(th),
+  .content :global(td) {
+    border: 1px solid #f0dcc4;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .content :global(th) {
+    background-color: #fff3e6;
+    color: #b8441f;
+    font-family: "Fraunces", serif;
+  }
+  .content :global(tr:nth-child(even) td) {
+    background-color: #fffaf3;
+  }
+
+  .content :global(ul:has(li input[type="checkbox"])) {
+    list-style: none;
+    padding-left: 8px;
+  }
+  .content :global(li input[type="checkbox"]) {
+    margin-right: 8px;
+    accent-color: #4a7c59;
+  }
+
+  .content :global(.markdown-alert) {
+    border-left-style: solid;
+    border-left-width: 4px;
+    padding: 12px 20px;
+    margin: 20px 0;
+  }
+
+  .content :global(.markdown-alert-title) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+  }
+
+  .content :global(.markdown-alert-title .octicon) {
+    fill: currentColor;
+  }
+
+  /* 🔵 NOTE: Blue (Informational) */
+  .content :global(.markdown-alert-note) {
+    border-left-color: #0969da;
+    background-color: #ddf4ff;
+  }
+  .content :global(.markdown-alert-note .markdown-alert-title) {
+    color: #0969da;
+  }
+
+  /* 🟢 TIP: Green (Positive / Advice) */
+  .content :global(.markdown-alert-tip) {
+    border-left-color: #1a7f37;
+    background-color: #dafbe1;
+  }
+  .content :global(.markdown-alert-tip .markdown-alert-title) {
+    color: #1a7f37;
+  }
+
+  /* 🟣 IMPORTANT: Purple (Key Highlight) */
+  .content :global(.markdown-alert-important) {
+    border-left-color: #8250df;
+    background-color: #fbefff;
+  }
+  .content :global(.markdown-alert-important .markdown-alert-title) {
+    color: #8250df;
+  }
+
+  /* 🟡 WARNING: Amber / Gold (Proceed with Caution) */
+  .content :global(.markdown-alert-warning) {
+    border-left-color: #9a6700;
+    background-color: #fff8c5;
+  }
+  .content :global(.markdown-alert-warning .markdown-alert-title) {
+    color: #9a6700;
+  }
+
+  /* 🔴 CAUTION: Red (Danger / Critical) */
+  .content :global(.markdown-alert-caution) {
+    border-left-color: #cf222e;
+    background-color: #ffebe9;
+  }
+  .content :global(.markdown-alert-caution .markdown-alert-title) {
+    color: #cf222e;
   }
 </style>

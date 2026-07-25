@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100">
+  <!-- Mark: a round "plate" with a bite taken out of it -->
+  <g transform="translate(52 50)">
+    <circle r="42" fill="#e8622c"/>
+    <!-- the bite -->
+    <circle cx="34" cy="-25" r="19" fill="#fffaf3"/>
+    <!-- crumb dots from the bite -->
+    <circle cx="20" cy="-42" r="3.5" fill="#e8622c"/>
+    <circle cx="10" cy="-49" r="2.5" fill="#e8622c"/>
+    <!-- steam rising from the plate -->
+    <path d="M-12 -10 q-7 -12 0 -24" fill="none" stroke="#fffaf3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M5 -17 q-7 -12 0 -24" fill="none" stroke="#fffaf3" stroke-width="4" stroke-linecap="round"/>
+    <!-- inner plate rim -->
+    <circle r="27" fill="none" stroke="#fffaf3" stroke-width="3" opacity="0.85"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="112" y="45" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="24" fill="#b8441f">
+    Recipe
+  </text>
+  <text x="112" y="72" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="24" fill="#4a7c59">
+    Bites
+  </text>
+</svg>

@@ -1,3 +1,12 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "Recipe Bites" } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -11,16 +20,19 @@
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Recipe Bites</title>
+    <title>{title}</title>
   </head>
   <body>
     <header>
-      <h1>Recipe Bites</h1>
+      <a href="/" class="brand">
+        <img src="/logo.svg" alt="Recipe Bites" height="44" />
+      </a>
+
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/recipes">Recipes</a></li>
+          <li><a href="/" class:list={[{ active: currentPath === "/" }]}>Home</a></li>
+          <li><a href="/about" class:list={[{ active: currentPath === "/about" }]}>About</a></li>
+          <li><a href="/recipes" class:list={[{ active: currentPath.startsWith("/recipes") }]}>Recipes</a></li>
         </ul>
       </nav>
     </header>
@@ -42,6 +54,12 @@
     align-items: center;
     justify-content: space-between;
 
+    .brand img {
+      display: block;
+      height: 44px;
+      width: auto;
+    }
+
     h1 {
       margin: 0;
       font-family: "Fraunces", serif;
@@ -55,14 +73,21 @@
       gap: 20px;
       padding: 0;
     }
-    a {
+    nav a {
       text-decoration: none;
       color: #6b4423;
       font-weight: 600;
       border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease;
+      transition:
+        border-color 0.15s ease,
+        color 0.15s ease;
     }
-    a:hover {
+    nav a:hover {
+      color: #b8441f;
+      border-bottom-color: #e8b98a;
+    }
+    nav a.active {
+      color: #e8622c;
       border-bottom-color: #e8622c;
     }
   }

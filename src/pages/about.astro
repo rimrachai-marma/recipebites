@@ -2,27 +2,29 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout>
+<BaseLayout title="About | Recipe Bites">
   <div class="content">
-    <h2>About</h2>
-    <p>
-      Recipe Bites is a small collection of recipes I actually make on repeat, instead of losing them in fifty browser
-      tabs and one very sticky notebook.
-    </p>
-    <p>
-      Everything here has been tested in my own kitchen, usually more than once, and usually with a few substitutions
-      along the way. If a recipe calls for an ingredient you don't have, my honest advice is to just try it anyway and
-      see what happens.
-    </p>
+    <div class="card">
+      <h2>About</h2>
+      <p>
+        Recipe Bites is a small collection of recipes I actually make on repeat, instead of losing them in fifty browser
+        tabs and one very sticky notebook.
+      </p>
+      <p>
+        Everything here has been tested in my own kitchen, usually more than once, and usually with a few substitutions
+        along the way. If a recipe calls for an ingredient you don't have, my honest advice is to just try it anyway and
+        see what happens.
+      </p>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  .content {
+  .card {
     background-color: #fff8f0;
     border: 1px solid #f0dcc4;
     border-radius: 10px;
-    padding: 32px 40px;
+    padding: 28px;
     box-shadow: 0 4px 0 #e8b98a;
   }
   h2 {
