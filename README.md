@@ -1,43 +1,89 @@
-# Astro Starter Kit: Minimal
+# Recipe Bites 🍲
 
-```sh
-npm create astro@latest -- --template minimal
+A recipe collections built with [Astro](https://astro.build/) and a pinch of React — content collections for recipes, static pagination, GFM-flavored Markdown, and a small interactive "likes" widget. Currently seeded with sample recipes as a working demo of the layout and content model.
+
+## Features
+
+- **Content collections** — recipes are written in Markdown with a typed frontmatter schema (title, chef, rating, summary, hero image, gallery)
+- **Static pagination** — recipe listing paginated 4-per-page with prev/next and numbered page navigation
+- **GitHub Flavored Markdown** — tables, task-list checkboxes, and GitHub-style alert callouts (note / tip / important / warning / caution) render right in the recipe body
+- **Recipe galleries** — optional "In the Making" step-by-step photo gallery per recipe
+- **Interactive likes** — an "I made this!" button (React island) on every recipe page
+
+## Tech Stack
+
+- [Astro](https://astro.build) — static site generation, routing, content collections
+- [React](https://react.dev) — for interactive islands (`Likes`)
+- Markdown + GFM (via `remark-github-blockquote-alert`) for recipe content
+- TypeScript
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
+├── public/                   # Static assets (favicon, logos)
 ├── src/
+│   ├── components/           # Astro & React components
+│   │   ├── RecipeCard.astro
+│   │   └── Likes.tsx
+│   ├── content/
+│   │   └── recipes/          # One folder per recipe (index.md + images)
+│   ├── content.config.ts     # Recipe collection schema
+│   ├── layouts/
+│   │   └── BaseLayout.astro
 │   └── pages/
-│       └── index.astro
+│       ├── index.astro
+│       ├── about.astro
+│       └── recipes/
+│           ├── index.astro
+│           ├── [id].astro    # Recipe detail page
+│           └── page/[page].astro  # Paginated recipe listing
+├── astro.config.mjs
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Adding a Recipe
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Create a new folder under `src/content/recipes/` with an `index.md` file:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+src/content/recipes/my-new-recipe/
+└── index.md
+```
 
-## 🧞 Commands
+Each recipe's frontmatter follows this schema:
 
-All commands are run from the root of the project, from a terminal:
+```yaml
+---
+title: My New Recipe
+chef: Your Name
+rating: 9
+summary: A short one-line summary of the recipe.
+image: ./hero.jpg # optional
+gallery: # optional
+  - ./step-1.jpg
+  - ./step-2.jpg
+---
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+The rest of the file is the recipe itself, written in Markdown (GFM supported — tables, checkboxes, and `> [!TIP]`-style alerts all work).
 
-## 👀 Want to learn more?
+## Development
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```sh
+npm install
+npm run dev
+```
+
+| Command           | Action                                     |
+| :---------------- | :----------------------------------------- |
+| `npm install`     | Install dependencies                       |
+| `npm run dev`     | Start local dev server at `localhost:4321` |
+| `npm run build`   | Build the production site to `./dist/`     |
+| `npm run preview` | Preview the production build locally       |
+
+Requires Node.js `>=22.12.0`.
+
+## License
+
+Personal/demo project — code is free to poke around and borrow from.
