@@ -70,7 +70,7 @@ Overall rating: **8 out of 10 politely demanding pastries**.
 
 > Advises about risks or negative outcomes of certain actions.
 
-```js"
+```js
 // JavaScript code with syntax highlighting.
 var fun = function lang(l) {
   dateformat.i18n = require("./lang/" + l);
