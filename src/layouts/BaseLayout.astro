@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
         <ul>
           <li><a href="/" class:list={[{ active: currentPath === "/" }]}>Home</a></li>
           <li><a href="/about" class:list={[{ active: currentPath === "/about" }]}>About</a></li>
-          <li><a href="/recipes/page/1" class:list={[{ active: currentPath.startsWith("/recipes") }]}>Recipes</a></li>
+          <li><a href="/recipes" class:list={[{ active: currentPath.startsWith("/recipes") }]}>Recipes</a></li>
         </ul>
       </nav>
     </header>
